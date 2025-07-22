@@ -1,0 +1,94 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="Trump_It_.MainPage">
+    <ScrollView>
+        <VerticalStackLayout
+            VerticalOptions="Center"
+            Spacing="35">
+            <HorizontalStackLayout
+                HorizontalOptions="Center"
+                Padding="0,40"
+                Spacing="-150">
+                
+                <Image
+                    Source="t_card.png"
+                    Rotation="-18"
+                    HeightRequest="240"
+                    WidthRequest="250"
+                    Margin="0,40,0,0"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="homeCardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image 
+                    Source="r_card.png"
+                    Rotation="-10"
+                    HeightRequest="250"
+                    WidthRequest="250"
+                    Margin="0,0,0,10"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="homeCardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image
+                    Source="u_card.png"
+                    Rotation="0"
+                    HeightRequest="250"
+                    WidthRequest="250"
+                    Margin="0,0,0,25"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="homeCardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image
+                    Source="m_card.png"
+                    Rotation="10"
+                    HeightRequest="250"
+                    WidthRequest="250"
+                    Margin="0,0,0,10"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="homeCardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+
+                <Image
+                    Source="p_card.png"
+                    Rotation="18"
+                    HeightRequest="250"
+                    WidthRequest="250"
+                    Margin="0,35,0,0"
+                    Aspect="AspectFit">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="homeCardTapped" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
+            </HorizontalStackLayout>
+                <Button 
+                    Text="PLAY"
+                    FontSize="Medium"
+                    FontAttributes="Bold"
+                    TextColor="WhiteSmoke"
+                    HeightRequest="30"
+                    WidthRequest="150"
+                    BackgroundColor="LightSteelBlue"
+                ></Button>
+                <Button
+                    Text="HOW TO PLAY"
+                    FontSize="Medium"
+                    TextColor="WhiteSmoke"
+                    HeightRequest="30"
+                    WidthRequest="200"
+                    BackgroundColor="LightSteelBlue"
+                ></Button>
+        </VerticalStackLayout>
+    </ScrollView>
+</ContentPage>
