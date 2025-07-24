@@ -6,6 +6,7 @@
     <ScrollView>
         <VerticalStackLayout
             VerticalOptions="Center"
+            HorizontalOptions="Center" 
             Spacing="35">
             <skia:SKLottieView
                 x:Name="trumpetAnim"
@@ -14,7 +15,7 @@
                 RepeatCount="1"
                 HeightRequest="300"
                 WidthRequest="300"
-                HorizontalOptions="Center" />
+                />
 
             <HorizontalStackLayout
                 HorizontalOptions="Center"
@@ -83,6 +84,7 @@
                 
             </HorizontalStackLayout>
                 <Button 
+                    x:Name="playButton"
                     Text="PLAY"
                     FontSize="Medium"
                     FontAttributes="Bold"
@@ -90,6 +92,7 @@
                     HeightRequest="30"
                     WidthRequest="150"
                     BackgroundColor="LightSteelBlue"
+                    Clicked="playBtnClicked"
                 ></Button>
                 <Button
                     Text="HOW TO PLAY"
@@ -98,6 +101,7 @@
                     HeightRequest="30"
                     WidthRequest="200"
                     BackgroundColor="LightSteelBlue"
+                    Clicked="howToPlayBtnClicked"
                 ></Button>
         </VerticalStackLayout>
     </ScrollView>

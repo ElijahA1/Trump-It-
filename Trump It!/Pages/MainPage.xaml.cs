@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using SkiaSharp.Extended.UI.Controls;    // for SKLottieView
 using Microsoft.Maui.Controls;
+using Trump_It_.Pages;
 
 namespace Trump_It_
 {
@@ -24,6 +25,14 @@ namespace Trump_It_
                 await Task.Delay(20);                      // allow control to update
                 trumpetAnim.IsAnimationEnabled = true;     // start playing
             }
+        }
+        private async void playBtnClicked(object sender, EventArgs e) 
+        {
+            await Navigation.PushModalAsync(new GameContent());
+        }
+        private async void howToPlayBtnClicked(object sender, EventArgs e)
+        {
+            await Navigation.PushModalAsync(new HowToPlayContent());
         }
     }
 }
