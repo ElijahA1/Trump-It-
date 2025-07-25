@@ -59,6 +59,27 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\Images\Deck of Cards\Stars\ace_star.png" />
+	  <None Remove="Resources\Images\Main Page Cards\m_card.png" />
+	  <None Remove="Resources\Images\Main Page Cards\p_card.png" />
+	  <None Remove="Resources\Images\Main Page Cards\r_card.png" />
+	  <None Remove="Resources\Images\Main Page Cards\t_card.png" />
+	  <None Remove="Resources\Images\Main Page Cards\u_card.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Deck of Cards\Stars\ace_star.png" />
+	  <MauiImage Include="Resources\Images\Main Page Cards\m_card.png" />
+	  <MauiImage Include="Resources\Images\Main Page Cards\p_card.png" />
+	  <MauiImage Include="Resources\Images\Main Page Cards\r_card.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiImage Include="Resources\Images\Main Page Cards\t_card.png" />
+	  <MauiImage Include="Resources\Images\Main Page Cards\u_card.png" />
+	</ItemGroup>
+
+	<ItemGroup>
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />

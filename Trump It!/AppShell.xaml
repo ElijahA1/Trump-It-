@@ -7,7 +7,6 @@
     Title="Trump_It_">
 
     <ShellContent
-        Title="Home"
         ContentTemplate="{DataTemplate local:MainPage}"
         Route="MainPage" />
 

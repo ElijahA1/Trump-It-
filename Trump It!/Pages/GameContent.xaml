@@ -1,9 +1,29 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Class="Trump_It_.Pages.GameContent"
-             Title="GameContent">
+             Title="GameContent"
+             BackgroundColor="DarkSlateGray">
     <VerticalStackLayout>
+        <Button
+            Text="Home"
+            FontSize="Medium"
+            TextColor="WhiteSmoke"
+            HeightRequest="30"
+            WidthRequest="100"
+            BackgroundColor="DarkSlateGray"
+            HorizontalOptions="Start"
+            Clicked="homeBtnClicked"
+        ></Button>
+        <skia:SKLottieView
+                x:Name="deck_shuffle_anim"
+                Source="deck_shuffle.json"
+                IsAnimationEnabled="True"
+                RepeatCount="-1"
+                HeightRequest="300"
+                WidthRequest="300"
+                />
         <Label 
             TextColor="AntiqueWhite"
             FontSize="20"
@@ -12,14 +32,41 @@
             Text="This is the game space"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
+
+        <Grid 
+            x:Name="FlipCardContainer"
+            HeightRequest="300"
+            WidthRequest="300"
+            HorizontalOptions="Center"
+            VerticalOptions="Center"
+            >
+
+            <skia:SKLottieView
+            x:Name="card_flip_anim"
+            Source="card_flip.json"
+            IsAnimationEnabled="False"
+            HeightRequest="300"
+            WidthRequest="300" 
+             />
+
+            <Image
+            x:Name="cardFaceImage"
+            Source="ace_star.png"
+            IsVisible= "False"
+            Aspect="AspectFit"
+            HeightRequest="300"
+            WidthRequest="300" 
+            />
+        </Grid>
+
         <Button
-            Text="Home"
-            FontSize="Medium"
-            TextColor="WhiteSmoke"
+            x:Name="flipCard"
+            Text="Flip Card"
             HeightRequest="30"
-            WidthRequest="200"
-            BackgroundColor="LightSteelBlue"
-            Clicked="homeBtnClicked"
-        ></Button>
+            WidthRequest="90" 
+            Margin="0,10,0,0"
+            Clicked="OnCardTapped"
+         />
+
     </VerticalStackLayout>
 </ContentPage>

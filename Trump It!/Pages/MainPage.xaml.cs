@@ -17,8 +17,8 @@ namespace Trump_It_
         {
             if (sender is Image tappedImage)
             {
-                await tappedImage.ScaleTo(1.2, 150, Easing.CubicOut);
-                await tappedImage.ScaleTo(1.0, 150, Easing.CubicIn);
+                await tappedImage.TranslateTo(0, -50, 300);
+                await tappedImage.TranslateTo(0, 0, 300);
 
                 trumpetAnim.IsAnimationEnabled = false;    // stop current run
                 trumpetAnim.Progress = TimeSpan.Zero;      // rewind to frame 0

@@ -2,7 +2,8 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-             x:Class="Trump_It_.MainPage">
+             x:Class="Trump_It_.MainPage"
+             BackgroundColor="DarkSlateGray">
     <ScrollView>
         <VerticalStackLayout
             VerticalOptions="Center"
@@ -19,7 +20,7 @@
 
             <HorizontalStackLayout
                 HorizontalOptions="Center"
-                Padding="0,40"
+                Padding="0,50"
                 Spacing="-150">
                 
                 <Image
@@ -81,17 +82,24 @@
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                
+                <Label
+                    FontSize="90"
+                    FontAttributes="Bold"
+                    FontFamily="Aria"
+                    Rotation="20"
+                    Margin="100,260,0,0"
+                    Text="IT!"/>
+
             </HorizontalStackLayout>
                 <Button 
                     x:Name="playButton"
-                    Text="PLAY"
+                    Text="PLAY IT!"
                     FontSize="Medium"
                     FontAttributes="Bold"
                     TextColor="WhiteSmoke"
                     HeightRequest="30"
                     WidthRequest="150"
-                    BackgroundColor="LightSteelBlue"
+                    BackgroundColor="DarkSlateBlue"
                     Clicked="playBtnClicked"
                 ></Button>
                 <Button
@@ -100,7 +108,7 @@
                     TextColor="WhiteSmoke"
                     HeightRequest="30"
                     WidthRequest="200"
-                    BackgroundColor="LightSteelBlue"
+                    BackgroundColor="DarkSlateBlue"
                     Clicked="howToPlayBtnClicked"
                 ></Button>
         </VerticalStackLayout>
