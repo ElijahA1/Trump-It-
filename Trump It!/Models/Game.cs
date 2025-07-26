@@ -1,0 +1,188 @@
+﻿namespace Class_Practice
+{
+    public class Game
+    {
+        public Card? TrumpCard { get; set; }
+
+        Player player = new Player();
+        Dealer dealer = new Dealer();
+
+        private Stack<Card> deck = new Stack<Card>();
+
+        private int[] arrayValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
+        private string[] arraySuits = { "heart", "diamond", "club", "spade", "star" };
+
+        public void pushCardsToDeck()
+        {
+            foreach (string suit in arraySuits)
+            {
+                foreach (int value in arrayValues)
+                {
+                    deck.Push(new Card(value, suit));
+                }
+            }
+        }
+
+        public void shuffleDeck()
+        {
+            List<Card> deckToList = deck.ToList();
+            Random randomIndex = new Random();
+
+            for (int i = deckToList.Count - 1; i >= 0; i--)
+            {
+                int randomI = randomIndex.Next(i + 1);
+                (deckToList[i], deckToList[randomI]) = (deckToList[randomI], deckToList[i]);
+
+            }
+            deck = new Stack<Card>(deckToList);
+        }
+
+        public void dealCards(int rounds) // Await shuffle animation then deal. Interaction Required
+        {
+            player.Hand = new List<Card>();
+            dealer.Hand = new List<Card>();
+            player.Tricks = 0;
+            dealer.Tricks = 0;
+
+            for (int i = 0; i < rounds; i++)
+            {
+                player.Hand.Add(deck.Pop());
+                dealer.Hand.Add(deck.Pop());
+            }
+
+            TrumpCard = deck.Pop(); // <= Flip
+
+            Console.WriteLine("Player has cards: ");
+            foreach (Card card in player.Hand)
+            {
+                Console.WriteLine($"\n{card.Value} of {card.Suit}");
+            }
+            Console.WriteLine($"\n The Trump Card is: {TrumpCard.Value} of {TrumpCard.Suit}");
+        }
+        public void countBids(int round) // Player enter bit and dealer 
+        {
+            Console.Write($"\nEnter a bid \"0\" through \"{round}\": ");
+            int bid = Convert.ToInt32(Console.ReadLine());
+
+            player.Bid = bid;
+            if (bid == 0)
+            {
+                dealer.Bid = round - 1;
+            }
+            else if (bid == round)
+            {
+                dealer.Bid = 1;
+            }
+            else
+            {
+                dealer.Bid = round - bid - 1;
+            }
+
+            Console.WriteLine($"\nYou bid {player.Bid} tricks");
+            Console.WriteLine($"Dealer bid {dealer.Bid} tricks");
+        }
+        public void playersTurn()
+        {
+            player.CardInPlay = new Card(0, "Null");
+
+            Console.Write("\nEnter your card value: ");
+            player.CardInPlay.Value = Convert.ToInt32(Console.ReadLine());
+            Console.Write("\nEnter your card suit: ");
+            player.CardInPlay.Suit = Console.ReadLine();
+
+            Console.WriteLine($"\nYou played the {player.CardInPlay.Value} of {player.CardInPlay.Suit}");
+
+            removeCardFromList(player.CardInPlay, player.Hand);
+        }
+        public void dealersTurn()
+        {
+            List<Card> sameSuitCards = new List<Card>();
+            // Add same suit cards to a new list
+            foreach (Card card in dealer.Hand)
+            {
+                if (card.Suit == player.CardInPlay.Suit)
+                {
+                    sameSuitCards.Add(card);
+                }
+            }
+
+            if (sameSuitCards.Count > 0)
+            {
+                // Select the first same suit card from list
+                dealer.CardInPlay = sameSuitCards[0];
+            }
+            else
+            {
+                dealer.CardInPlay = dealer.Hand[0];
+            }
+            // Remove cardInPlay from dealers hand
+            removeCardFromList(dealer.CardInPlay, dealer.Hand);
+
+            Console.WriteLine($"\nThe dealer played {dealer.CardInPlay.Value} of {dealer.CardInPlay.Suit}");
+        }
+        public void handWinner()
+        {
+            bool bothSameValue = player.CardInPlay.Value == dealer.CardInPlay.Value;
+            bool bothSameSuit = player.CardInPlay.Suit == dealer.CardInPlay.Suit;
+            bool playerHasTrump = player.CardInPlay.Suit == TrumpCard.Suit;
+            bool dealerHasTrump = dealer.CardInPlay.Suit == TrumpCard.Suit;
+
+            if (bothSameSuit)
+            {
+                if (bothSameValue)
+                {
+                    player.Tricks += 1;
+                    player.Points += 1;
+                    Console.WriteLine($"\nPlayer won this hand. Player has {player.Tricks} tricks.");
+                }
+                else
+                {
+                    dealer.Tricks += 1;
+                    dealer.Points += 1;
+                }
+                Console.WriteLine($"\nDealer won this hand. Dealer has {dealer.Tricks} tricks.");
+            }
+            else if (playerHasTrump && !dealerHasTrump)
+            {
+                player.Tricks += 1;
+                player.Points += 1;
+                Console.WriteLine($"\nPlayer won this hand. Player has {player.Tricks} tricks.");
+            }
+            else if (dealerHasTrump && !playerHasTrump)
+            {
+                dealer.Tricks += 1;
+                dealer.Points += 1;
+                Console.WriteLine($"\nDealer won this hand. Dealer has {dealer.Tricks} tricks.");
+            }
+            else
+            {
+                dealer.Tricks += 1;
+                dealer.Points += 1;
+                Console.WriteLine($"\nDealer won this hand. Dealer has {dealer.Tricks} tricks.");
+            }
+        }
+        public void addBonusPoints()
+        {
+            if (player.Bid == player.Tricks)
+            {
+                player.Points += 5;
+                Console.WriteLine("\nPlayer met the bid");
+            }
+            if (dealer.Bid == dealer.Tricks)
+            {
+                dealer.Points += 5;
+                Console.WriteLine("\nDealer met the bid");
+            }
+            Console.WriteLine($"\nPlayer has {player.Points} points");
+            Console.WriteLine($"\nDealer has {dealer.Points} points");
+        }
+        public void removeCardFromList(Card usedCard, List<Card> listOfCards)
+        {
+            var match = listOfCards.Find(card =>
+                card.Value == usedCard.Value && card.Suit == usedCard.Suit);
+
+            if (match != null)
+                listOfCards.Remove(match);
+        }
+    }
+}
