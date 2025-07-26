@@ -16,7 +16,7 @@ public partial class GameContent : ContentPage
         cardFaceImage.IsVisible = false; // Hide PNG at start
         card_flip_anim.IsAnimationEnabled = true;// Run flip animation
 
-        await Task.Delay(3000);           // Midpoint delay (adjust for your animation)
+        await Task.Delay(200);           // Midpoint delay (adjust for your animation)
 
         // After flip midpoint, show card face PNG
         cardFaceImage.Source = ImageSource.FromFile("ace_star.png");

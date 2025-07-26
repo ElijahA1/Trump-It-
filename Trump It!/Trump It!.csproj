@@ -54,6 +54,8 @@
 		<MauiImage Include="Resources\Images\Deck of Cards\Diamonds\*" />
 		<MauiImage Include="Resources\Images\Deck of Cards\Hearts\*" />
 		<MauiImage Include="Resources\Images\Deck of Cards\Spades\*" />
+		<MauiImage Include="Resources\Images\Deck of Cards\Stars\*" />
+
 		
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -63,7 +65,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <None Remove="Resources\Images\Deck of Cards\Stars\ace_star.png" />
 	  <None Remove="Resources\Images\Main Page Cards\m_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\p_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\r_card.png" />
@@ -72,7 +73,6 @@
 	</ItemGroup>
 
 	<ItemGroup>
-	  <MauiImage Include="Resources\Images\Deck of Cards\Stars\ace_star.png" />
 	  <MauiImage Include="Resources\Images\Main Page Cards\m_card.png" />
 	  <MauiImage Include="Resources\Images\Main Page Cards\p_card.png" />
 	  <MauiImage Include="Resources\Images\Main Page Cards\r_card.png" />
