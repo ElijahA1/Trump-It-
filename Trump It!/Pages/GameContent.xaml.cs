@@ -1,58 +1,60 @@
 using Class_Practice;
+using SkiaSharp.Extended.UI.Controls;
 using System.Threading.Tasks;
 
 namespace Trump_It_.Pages;
 
 public partial class GameContent : ContentPage
 {
-	public GameContent()
+    Game game = new Game();
+    public GameContent()
 	{
 		InitializeComponent();
 
         int rounds = 5;
+
+        Image[] cardFaces = new[]
+        { card_face_0, card_face_1, card_face_2, card_face_3, card_face_4 };
+
+        SKLottieView[] flipAnims = new[]
+        { flip_card_anim_0, flip_card_anim_1, flip_card_anim_2, flip_card_anim_3, flip_card_anim_4 };
+
         for (int i = 1; i <= rounds + 1; i++)
         {
             game.pushCardsToDeck();
             game.shuffleDeck();
             shuffleCardsAnim();
-            //game.dealCards(i);
-            //game.countBids(i);
-            //for (int j = 0; j < i; j++)
-            //{
-            //    game.playersTurn();
-            //    game.dealersTurn();
-            //    game.handWinner();
-            //}
+            game.dealCards(i);
+            dealCardAnimations(i, game.getPlayerCards());
         }
-        //game.addBonusPoints();
 
+        void dealCardAnimations(int rounds, List<Card> playerHand)
+        {
+            for (int i = 0; i < cardFaces.Length; i++)
+            {
+                cardFaces[i].IsVisible = false;
+                flipAnims[i].IsVisible = false;
+            }
+
+            // Populate only the first `rounds` slots
+            for (int i = 0; i < rounds && i < cardFaces.Length; i++)
+            {
+                var card = playerHand[i];
+
+                // Show the static face image
+                cardFaces[i].Source = ImageSource.FromFile(card.ImagePath);
+                cardFaces[i].IsVisible = true;
+
+                // Keep the flip animation hidden until you tap to flip
+                flipAnims[i].IsVisible = false;
+            }
+        }
     }
-
-    Game game = new Game();
-
 	private async void homeBtnClicked(object sender, EventArgs e)
 	{
 		await Navigation.PopModalAsync();
 	}
-    private async void OnCardTapped(object sender, EventArgs e)
-    {
-        cardFaceImageLeft.IsVisible = false; // Hide PNG at start
-        card_flip_left.IsAnimationEnabled = true;// Run flip animation
-        cardFaceImageMiddle.IsVisible = false; // Hide PNG at start
-        card_flip_middle.IsAnimationEnabled = true;// Run flip animation
-        cardFaceImageRight.IsVisible = false; // Hide PNG at start
-        card_flip_right.IsAnimationEnabled = true;// Run flip animation
 
-        await Task.Delay(200);           // Midpoint delay (adjust for your animation)
-
-        // After flip midpoint, show card face PNG
-        cardFaceImageLeft.Source = ImageSource.FromFile("ace_heart.png");
-        cardFaceImageLeft.IsVisible = true;
-        cardFaceImageMiddle.Source = ImageSource.FromFile("ace_star.png");
-        cardFaceImageMiddle.IsVisible = true;
-        cardFaceImageRight.Source = ImageSource.FromFile("ace_club.png");
-        cardFaceImageRight.IsVisible = true;
-    }
     private async Task shuffleCardsAnim() 
     {
         deck_shuffle_anim.IsAnimationEnabled=true;

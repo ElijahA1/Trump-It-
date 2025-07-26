@@ -17,13 +17,13 @@
             Clicked="homeBtnClicked"
         ></Button>
         <skia:SKLottieView
-                x:Name="deck_shuffle_anim"
-                Source="deck_shuffle.json"
-                IsAnimationEnabled="False"
-                RepeatCount="2"
-                HeightRequest="300"
-                WidthRequest="300"
-                />
+            x:Name="deck_shuffle_anim"
+            Source="deck_shuffle.json"
+            IsAnimationEnabled="False"
+            RepeatCount="2"
+            HeightRequest="300"
+            WidthRequest="300"
+            />
         <Label 
             TextColor="AntiqueWhite"
             FontSize="20"
@@ -32,92 +32,125 @@
             Text="This is the game space"
             VerticalOptions="Center" 
             HorizontalOptions="Center" />
-        
-        
-        <HorizontalStackLayout>
-            <Grid 
-            x:Name="left_card_grid"
-            HeightRequest="300"
-            WidthRequest="300"
+
+        <HorizontalStackLayout
             HorizontalOptions="Center"
-            VerticalOptions="Center"
+            VerticalOptions="End">
+            
+            <Grid 
+            HeightRequest="200"
+            WidthRequest="200"
             >
 
                 <skia:SKLottieView
-            x:Name="card_flip_left"
+            x:Name="flip_card_anim_3"
             Source="card_flip.json"
             IsAnimationEnabled="False"
-            HeightRequest="300"
-            WidthRequest="300" 
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
              />
 
                 <Image
-            x:Name="cardFaceImageLeft"
+            x:Name="card_face_3"
             IsVisible= "False"
             Aspect="AspectFit"
-            HeightRequest="300"
-            WidthRequest="300" 
+            HeightRequest="200"
+            WidthRequest="200"
             />
             </Grid>
+            
             <Grid 
-            x:Name="middle_card_grid"
-            HeightRequest="300"
-            WidthRequest="300"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
-            >
-
-            <skia:SKLottieView
-            x:Name="card_flip_middle"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="300"
-            WidthRequest="300" 
-             />
-
-            <Image
-            x:Name="cardFaceImageMiddle"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="300"
-            WidthRequest="300" 
-            />
-            </Grid>
-            <Grid 
-            x:Name="right_card_grid"
-            HeightRequest="300"
-            WidthRequest="300"
-            HorizontalOptions="Center"
-            VerticalOptions="Center"
+            HeightRequest="200"
+            WidthRequest="200"
             >
 
                 <skia:SKLottieView
-            x:Name="card_flip_right"
+            x:Name="flip_card_anim_1"
             Source="card_flip.json"
             IsAnimationEnabled="False"
-            HeightRequest="300"
-            WidthRequest="300" 
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
              />
 
                 <Image
-            x:Name="cardFaceImageRight"
+            x:Name="card_face_1"
             IsVisible= "False"
             Aspect="AspectFit"
-            HeightRequest="300"
-            WidthRequest="300" 
+            HeightRequest="200"
+            WidthRequest="200" 
             />
-          </Grid>
-       </HorizontalStackLayout>  
-        
+            </Grid>
+            <Grid 
+            HeightRequest="200"
+            WidthRequest="200"
+            >
 
-            <Button
-            x:Name="flipCard"
-            Text="Flip Card"
-            HeightRequest="30"
-            WidthRequest="90" 
-            Margin="0,10,0,0"
-            Clicked="OnCardTapped"
-         />
+                <skia:SKLottieView
+            x:Name="flip_card_anim_0"
+            Source="card_flip.json"
+            IsAnimationEnabled="False"
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
+             />
 
+                <Image
+            x:Name="card_face_0"
+            IsVisible= "False"
+            Aspect="AspectFit"
+            HeightRequest="200"
+            WidthRequest="200" 
+            />
+            </Grid>
+            
+            <Grid 
+            HeightRequest="200"
+            WidthRequest="200"
+            >
+
+                <skia:SKLottieView
+            x:Name="flip_card_anim_2"
+            Source="card_flip.json"
+            IsAnimationEnabled="False"
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
+             />
+
+                <Image
+            x:Name="card_face_2"
+            IsVisible= "False"
+            Aspect="AspectFit"
+            HeightRequest="200"
+            WidthRequest="200" 
+            />
+            </Grid>
+            
+            <Grid 
+            HeightRequest="200"
+            WidthRequest="200"
+            >
+
+                <skia:SKLottieView
+            x:Name="flip_card_anim_4"
+            Source="card_flip.json"
+            IsAnimationEnabled="False"
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
+             />
+
+                <Image
+            x:Name="card_face_4"
+            IsVisible= "False"
+            Aspect="AspectFit"
+            HeightRequest="200"
+            WidthRequest="200" 
+            />
+            </Grid>
+            
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

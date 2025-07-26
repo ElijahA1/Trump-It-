@@ -1,8 +1,10 @@
-﻿namespace Class_Practice
+﻿using SkiaSharp.Extended.UI.Controls;
+
+namespace Class_Practice
 {
     public class Game
     {
-        public Card? TrumpCard { get; set; }
+        public Card? trumpCard { get; set; }
 
         Player player = new Player();
         Dealer dealer = new Dealer();
@@ -12,6 +14,7 @@
         private int[] arrayValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         private string[] arraySuits = { "heart", "diamond", "club", "spade", "star" };
 
+        // Methods to run a game
         public void pushCardsToDeck()
         {
             foreach (string suit in arraySuits)
@@ -37,28 +40,28 @@
             deck = new Stack<Card>(deckToList);
         }
 
-        public void dealCards(int rounds) // Await shuffle animation then deal. Interaction Required
+        public void dealCards(int rounds)
         {
             player.Hand = new List<Card>();
             dealer.Hand = new List<Card>();
             player.Tricks = 0;
             dealer.Tricks = 0;
 
+            // Add cards to hand lists, pop cards from deck stack
             for (int i = 0; i < rounds; i++)
             {
                 player.Hand.Add(deck.Pop());
                 dealer.Hand.Add(deck.Pop());
             }
-
-            TrumpCard = deck.Pop(); // <= Flip
-
-            Console.WriteLine("Player has cards: ");
-            foreach (Card card in player.Hand)
-            {
-                Console.WriteLine($"\n{card.Value} of {card.Suit}");
-            }
-            Console.WriteLine($"\n The Trump Card is: {TrumpCard.Value} of {TrumpCard.Suit}");
+            trumpCard = deck.Pop();
         }
+
+        // Return dealer and player lists to gamecontent page
+        public List<Card> getPlayerCards() 
+        { return player.Hand; }
+        public List<Card> getDealerCards()
+        { return dealer.Hand; }
+
         public void countBids(int round) // Player enter bit and dealer 
         {
             Console.Write($"\nEnter a bid \"0\" through \"{round}\": ");
@@ -124,8 +127,8 @@
         {
             bool bothSameValue = player.CardInPlay.Value == dealer.CardInPlay.Value;
             bool bothSameSuit = player.CardInPlay.Suit == dealer.CardInPlay.Suit;
-            bool playerHasTrump = player.CardInPlay.Suit == TrumpCard.Suit;
-            bool dealerHasTrump = dealer.CardInPlay.Suit == TrumpCard.Suit;
+            bool playerHasTrump = player.CardInPlay.Suit == trumpCard.Suit;
+            bool dealerHasTrump = dealer.CardInPlay.Suit == trumpCard.Suit;
 
             if (bothSameSuit)
             {
