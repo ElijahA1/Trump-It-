@@ -56,16 +56,19 @@ namespace Class_Practice
             trumpCard = deck.Pop();
         }
 
-        // Return dealer and player lists to gamecontent page
+        // Return dealer and player lists to Game Content page
         public List<Card> getPlayerCards() 
         { return player.Hand; }
         public List<Card> getDealerCards()
         { return dealer.Hand; }
+        public Card getTrumpCard() 
+        { return trumpCard; }
 
         public void countBids(int round) // Player enter bit and dealer 
         {
             Console.Write($"\nEnter a bid \"0\" through \"{round}\": ");
             int bid = Convert.ToInt32(Console.ReadLine());
+
 
             player.Bid = bid;
             if (bid == 0)
@@ -80,9 +83,6 @@ namespace Class_Practice
             {
                 dealer.Bid = round - bid - 1;
             }
-
-            Console.WriteLine($"\nYou bid {player.Bid} tricks");
-            Console.WriteLine($"Dealer bid {dealer.Bid} tricks");
         }
         public void playersTurn()
         {

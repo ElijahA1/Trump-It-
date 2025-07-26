@@ -13,10 +13,22 @@
             HeightRequest="30"
             WidthRequest="100"
             BackgroundColor="DarkSlateGray"
-            HorizontalOptions="Start"
             Clicked="homeBtnClicked"
+            HorizontalOptions="Start"
         ></Button>
-        <skia:SKLottieView
+        <Label
+            Text="Trump Card"
+            FontSize="Large"
+            TextColor="Gold"
+            HorizontalOptions="End"
+            Margin="0,50,135,-30"
+            
+        ></Label>
+        <HorizontalStackLayout
+            HorizontalOptions="Center"
+            Spacing="200">
+            
+            <skia:SKLottieView
             x:Name="deck_shuffle_anim"
             Source="deck_shuffle.json"
             IsAnimationEnabled="False"
@@ -24,6 +36,31 @@
             HeightRequest="300"
             WidthRequest="300"
             />
+            <Grid 
+            HeightRequest="200"
+            WidthRequest="200"
+            >
+
+                <skia:SKLottieView
+            x:Name="flip_trump_card"
+            Source="card_flip.json"
+            IsAnimationEnabled="False"
+            HeightRequest="200"
+            WidthRequest="200" 
+            IsVisible="False"
+             />
+
+                <Image
+            x:Name="trump_card_face"
+            IsVisible= "False"
+            Aspect="AspectFit"
+            HeightRequest="200"
+            WidthRequest="200"
+            />
+            </Grid>
+            
+        </HorizontalStackLayout>
+        
         <Label 
             TextColor="AntiqueWhite"
             FontSize="20"
