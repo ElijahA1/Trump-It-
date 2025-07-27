@@ -5,112 +5,51 @@
              x:Class="Trump_It_.MainPage"
              BackgroundColor="DarkSlateGray">
     <ScrollView>
-        <VerticalStackLayout
-            VerticalOptions="Center"
-            HorizontalOptions="Center" 
-            Spacing="35">
-            <skia:SKLottieView
-                x:Name="trumpetAnim"
-                Source="trumpet.json"
-                IsAnimationEnabled="False"
-                RepeatCount="1"
-                HeightRequest="300"
-                WidthRequest="300"
-                />
-
-            <HorizontalStackLayout
-                HorizontalOptions="Center"
-                Padding="0,50"
-                Spacing="-150">
-                
-                <Image
-                    Source="t_card.png"
-                    Rotation="-18"
-                    HeightRequest="240"
-                    WidthRequest="250"
-                    Margin="0,40,0,0"
-                    Aspect="AspectFit">
+        <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="35">
+            <!-- Trumpet Animation -->
+            <skia:SKLottieView x:Name="trumpetAnim" Source="trumpet.json" IsAnimationEnabled="False" RepeatCount="1" HeightRequest="300" WidthRequest="300"/>
+   
+            <!-- T R U M P Cards Fanned Out -->
+            <HorizontalStackLayout HorizontalOptions="Center" Padding="0,50" Spacing="-150">
+                <!-- T Card -->
+                <Image Source="t_card.png" Rotation="-18" HeightRequest="240" WidthRequest="250" Margin="0,40,0,0" Aspect="AspectFit">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-
-                <Image 
-                    Source="r_card.png"
-                    Rotation="-10"
-                    HeightRequest="250"
-                    WidthRequest="250"
-                    Margin="0,0,0,10"
-                    Aspect="AspectFit">
+                <!-- R Card -->
+                <Image Source="r_card.png" Rotation="-10" HeightRequest="250" WidthRequest="250" Margin="0,0,0,10" Aspect="AspectFit">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-
-                <Image
-                    Source="u_card.png"
-                    Rotation="0"
-                    HeightRequest="250"
-                    WidthRequest="250"
-                    Margin="0,0,0,25"
-                    Aspect="AspectFit">
+                <!-- U Card -->
+                <Image Source="u_card.png" Rotation="0" HeightRequest="250" WidthRequest="250" Margin="0,0,0,25" Aspect="AspectFit">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-
-                <Image
-                    Source="m_card.png"
-                    Rotation="10"
-                    HeightRequest="250"
-                    WidthRequest="250"
-                    Margin="0,0,0,10"
-                    Aspect="AspectFit">
+                <!-- M Card -->
+                <Image Source="m_card.png"  Rotation="10" HeightRequest="250" WidthRequest="250" Margin="0,0,0,10" Aspect="AspectFit">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-
-                <Image
-                    Source="p_card.png"
-                    Rotation="18"
-                    HeightRequest="250"
-                    WidthRequest="250"
-                    Margin="0,35,0,0"
-                    Aspect="AspectFit">
+                <!-- P Card -->
+                <Image Source="p_card.png"  Rotation="18" HeightRequest="250" WidthRequest="250" Margin="0,35,0,0" Aspect="AspectFit">
                     <Image.GestureRecognizers>
                         <TapGestureRecognizer Tapped="homeCardTapped" />
                     </Image.GestureRecognizers>
                 </Image>
-                <Label
-                    FontSize="90"
-                    FontAttributes="Bold"
-                    FontFamily="Aria"
-                    Rotation="20"
-                    Margin="100,260,0,0"
-                    Text="IT!"/>
-
+                <!-- IT! label -->
+                <Label FontSize="90" FontAttributes="Bold" FontFamily="Aria" Rotation="20" Margin="100,260,0,0" Text="IT!"/>
             </HorizontalStackLayout>
-                <Button 
-                    x:Name="playButton"
-                    Text="PLAY IT!"
-                    FontSize="Medium"
-                    FontAttributes="Bold"
-                    TextColor="WhiteSmoke"
-                    HeightRequest="30"
-                    WidthRequest="150"
-                    BackgroundColor="DarkSlateBlue"
-                    Clicked="playBtnClicked"
-                ></Button>
-                <Button
-                    Text="HOW TO PLAY"
-                    FontSize="Medium"
-                    TextColor="WhiteSmoke"
-                    HeightRequest="30"
-                    WidthRequest="200"
-                    BackgroundColor="DarkSlateBlue"
-                    Clicked="howToPlayBtnClicked"
-                ></Button>
+            
+                 <!-- Play button -->
+                <Button x:Name="playButton" Text="PLAY IT!" FontSize="Medium" FontAttributes="Bold"  TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="150" BackgroundColor="DarkSlateBlue" Clicked="playBtnClicked" ></Button>
+                <!-- How to play button -->
+                <Button Text="HOW TO PLAY" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="200" BackgroundColor="DarkSlateBlue" Clicked="howToPlayBtnClicked"></Button>
+        
         </VerticalStackLayout>
     </ScrollView>
 </ContentPage>
