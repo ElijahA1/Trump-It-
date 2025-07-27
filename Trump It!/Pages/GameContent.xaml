@@ -5,189 +5,54 @@
              x:Class="Trump_It_.Pages.GameContent"
              Title="GameContent"
              BackgroundColor="DarkSlateGray">
-    <VerticalStackLayout>
-        <Button
-            Text="Home"
-            FontSize="Medium"
-            TextColor="WhiteSmoke"
-            HeightRequest="30"
-            WidthRequest="100"
-            BackgroundColor="DarkSlateGray"
-            Clicked="homeBtnClicked"
-            HorizontalOptions="Start"
-        ></Button>
-        <Label
-            Text="Trump Card"
-            FontSize="Large"
-            TextColor="Gold"
-            HorizontalOptions="End"
-            Margin="0,50,135,-30"
-            
-        ></Label>
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            Spacing="200">
-            
-            <skia:SKLottieView
-            x:Name="deck_shuffle_anim"
-            Source="deck_shuffle.json"
-            IsAnimationEnabled="False"
-            RepeatCount="2"
-            HeightRequest="300"
-            WidthRequest="300"
-            />
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
 
-                <skia:SKLottieView
-            x:Name="flip_trump_card"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
+    <VerticalStackLayout Spacing="20" Padding="20">
 
-                <Image
-            x:Name="trump_card_face"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200"
-            />
+        <!-- Home Button -->
+        <Button Text="Home" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkSlateGray" HorizontalOptions="Start" 
+                Clicked="homeBtnClicked"/>
+
+        <!-- Trump Card Label -->
+        <Label Text="Trump Card" FontSize="Large" TextColor="Gold" HorizontalOptions="End" Margin="0,10,0,0" />
+
+        <!-- Deck and Trump Card Animation Layer -->
+        <!-- Deck Shuffle Animation -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+            <skia:SKLottieView x:Name="deck_shuffle_anim" Source="deck_shuffle.json" IsAnimationEnabled="False" RepeatCount="2" HeightRequest="300" WidthRequest="300" />
+
+            <!-- Trump Card -->
+            <Grid HeightRequest="200" WidthRequest="200">
+                <skia:SKLottieView x:Name="flip_trump_card" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image x:Name="trump_card_face" IsVisible= "False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200"/>
             </Grid>
-            
+        </HorizontalStackLayout>
+
+        <!-- Game Space/Bidding Area -->
+        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
+            <Grid ></Grid>
+            <Label Text="This is the game space" FontSize="20" FontAttributes="Bold" TextColor="AntiqueWhite" HorizontalOptions="Center" />
         </HorizontalStackLayout>
         
-        <Label 
-            TextColor="AntiqueWhite"
-            FontSize="20"
-            FontAttributes="Bold"
-            Margin="40"
-            Text="This is the game space"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+        <!-- Bottom Row: Player Cards -->
+        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
+            <!-- Repeatable Card Blocks -->
+            <Grid HorizontalOptions="Fill" HeightRequest="200" ColumnSpacing="20" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" >
+                
+                <skia:SKLottieView Grid.Column="0" x:Name="flip_card_anim_3" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image Grid.Column="0" x:Name="card_face_3" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
 
-        <HorizontalStackLayout
-            HorizontalOptions="Center"
-            VerticalOptions="End">
-            
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
+                <skia:SKLottieView Grid.Column="1" x:Name="flip_card_anim_1" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image Grid.Column="1" x:Name="card_face_1" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
 
-                <skia:SKLottieView
-            x:Name="flip_card_anim_3"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
+                <skia:SKLottieView Grid.Column="2" x:Name="flip_card_anim_0" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image Grid.Column="2" x:Name="card_face_0" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
 
-                <Image
-            x:Name="card_face_3"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200"
-            />
+                <skia:SKLottieView Grid.Column="3" x:Name="flip_card_anim_2" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image Grid.Column="3"  x:Name="card_face_2" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
+
+                <skia:SKLottieView Grid.Column="4" x:Name="flip_card_anim_4" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                <Image Grid.Column="4" x:Name="card_face_4" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
             </Grid>
-            
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
-
-                <skia:SKLottieView
-            x:Name="flip_card_anim_1"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
-
-                <Image
-            x:Name="card_face_1"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200" 
-            />
-            </Grid>
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
-
-                <skia:SKLottieView
-            x:Name="flip_card_anim_0"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
-
-                <Image
-            x:Name="card_face_0"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200" 
-            />
-            </Grid>
-            
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
-
-                <skia:SKLottieView
-            x:Name="flip_card_anim_2"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
-
-                <Image
-            x:Name="card_face_2"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200" 
-            />
-            </Grid>
-            
-            <Grid 
-            HeightRequest="200"
-            WidthRequest="200"
-            >
-
-                <skia:SKLottieView
-            x:Name="flip_card_anim_4"
-            Source="card_flip.json"
-            IsAnimationEnabled="False"
-            HeightRequest="200"
-            WidthRequest="200" 
-            IsVisible="False"
-             />
-
-                <Image
-            x:Name="card_face_4"
-            IsVisible= "False"
-            Aspect="AspectFit"
-            HeightRequest="200"
-            WidthRequest="200" 
-            />
-            </Grid>
-            
         </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>
