@@ -29,29 +29,49 @@
 
         <!-- Game Space/Bidding Area -->
         <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-            <Grid ></Grid>
-            <Label Text="This is the game space" FontSize="20" FontAttributes="Bold" TextColor="AntiqueWhite" HorizontalOptions="Center" />
+            <Grid x:Name="biddingGrid" HeightRequest="400" HorizontalOptions="Fill" ColumnDefinitions="Auto" ColumnSpacing="30" ></Grid>
         </HorizontalStackLayout>
         
         <!-- Bottom Row: Player Cards -->
         <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
             <!-- Repeatable Card Blocks -->
-            <Grid HorizontalOptions="Fill" HeightRequest="200" ColumnSpacing="20" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" >
+            <Grid x:Name ="playerHandGrid"  HorizontalOptions="Fill" HeightRequest="200" ColumnSpacing="20" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" >
                 
                 <skia:SKLottieView Grid.Column="0" x:Name="flip_card_anim_3" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="0" x:Name="card_face_3" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
+                <Image Grid.Column="0" x:Name="card_face_3" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
 
                 <skia:SKLottieView Grid.Column="1" x:Name="flip_card_anim_1" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="1" x:Name="card_face_1" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
-
+                <Image Grid.Column="1" x:Name="card_face_1" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
                 <skia:SKLottieView Grid.Column="2" x:Name="flip_card_anim_0" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="2" x:Name="card_face_0" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
-
+                <Image Grid.Column="2" x:Name="card_face_0" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
                 <skia:SKLottieView Grid.Column="3" x:Name="flip_card_anim_2" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="3"  x:Name="card_face_2" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
-
+                <Image Grid.Column="3" x:Name="card_face_2" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
                 <skia:SKLottieView Grid.Column="4" x:Name="flip_card_anim_4" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="4" x:Name="card_face_4" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200" />
+                <Image Grid.Column="4" x:Name="card_face_4" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
+                    <Image.GestureRecognizers>
+                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
+                    </Image.GestureRecognizers>
+                </Image>
+                
             </Grid>
         </HorizontalStackLayout>
     </VerticalStackLayout>
