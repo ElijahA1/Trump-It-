@@ -1,4 +1,6 @@
-﻿namespace Class_Practice
+﻿using System.Collections.ObjectModel;
+
+namespace Card_Game
 {
     public class Dealer
     {

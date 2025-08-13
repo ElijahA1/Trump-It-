@@ -1,18 +1,18 @@
-﻿using SkiaSharp.Extended.UI.Controls;
+﻿using System.Collections.ObjectModel;
 
-namespace Class_Practice
+namespace Card_Game
 {
-    public class Game
+    public class GameLogic
     {
-        public Card trumpCard { get; set; }
+        public Card TrumpCard { get; set; }
 
         private Stack<Card> deck = new Stack<Card>();
 
         private int[] arrayValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
         private string[] arraySuits = { "heart", "diamond", "club", "spade", "star" };
 
-        // Methods to run a game
-        public void pushCardsToDeck()
+        // -- Game flow --
+        public void PushCardsToDeck()
         {
             foreach (string suit in arraySuits)
             {
@@ -22,7 +22,7 @@ namespace Class_Practice
                 }
             }
         }
-        public void shuffleDeck()
+        public void ShuffleDeck()
         {
             List<Card> deckToList = deck.ToList();
             Random randomIndex = new Random();
@@ -35,7 +35,7 @@ namespace Class_Practice
             }
             deck = new Stack<Card>(deckToList);
         }
-        public void dealCards(int rounds)
+        public void DealCards(int rounds)
         {
             Player.Hand = new List<Card>();
             Dealer.Hand = new List<Card>();
@@ -48,29 +48,29 @@ namespace Class_Practice
                 Player.Hand.Add(deck.Pop());
                 Dealer.Hand.Add(deck.Pop());
             }
-            trumpCard = deck.Pop();
+            TrumpCard = deck.Pop();
         }
-        public void dealerBid(int playerBid, int rounds) // Player enter bit and dealer 
+        public void DealerBid(int rounds) // Player enter bit and dealer 
         {
-            if (playerBid == 0)
+            if (Player.Bid == 0)
             {
                 Dealer.Bid = rounds - 1;
             }
-            else if (playerBid == rounds)
+            else if (Player.Bid == rounds)
             {
                 Dealer.Bid = 1;
             }
             else
             {
-                Dealer.Bid = rounds - playerBid - 1;
+                Dealer.Bid = rounds - Player.Bid - 1;
             }
         }
-        public void playersTurn(Card card)
+        public void PlayerTurn(Card card)
         {
             Player.CardInPlay = card;
-            removeCardFromList(Player.CardInPlay, Player.Hand);
+            RemoveCardFromList(Player.CardInPlay, Player.Hand);
         }
-        public void dealersTurn()
+        public void DealersTurn()
         {
             List<Card> sameSuitCards = new List<Card>();
             // Add same suit cards to a new list
@@ -92,15 +92,15 @@ namespace Class_Practice
                 Dealer.CardInPlay = Dealer.Hand[0];
             }
             // Remove cardInPlay from dealers hand
-            removeCardFromList(Dealer.CardInPlay, Dealer.Hand);
+            RemoveCardFromList(Dealer.CardInPlay, Dealer.Hand);
         }
-        public bool handWinner()
+        public bool PlayerWon()
         {
             bool playerWins;
             bool playerHasHighCard = Player.CardInPlay.Value > Dealer.CardInPlay.Value;
             bool bothSameSuit = Player.CardInPlay.Suit == Dealer.CardInPlay.Suit;
-            bool playerHasTrump = Player.CardInPlay.Suit == trumpCard.Suit;
-            bool dealerHasTrump = Dealer.CardInPlay.Suit == trumpCard.Suit;
+            bool playerHasTrump = Player.CardInPlay.Suit == TrumpCard.Suit;
+            bool dealerHasTrump = Dealer.CardInPlay.Suit == TrumpCard.Suit;
 
             if (bothSameSuit)
             {
@@ -117,13 +117,13 @@ namespace Class_Practice
                     playerWins = false;
                 }
             }
-            else if (playerHasTrump && !dealerHasTrump)
+            else if (playerHasTrump)
             {
                 Player.Tricks += 1;
                 Player.Points += 1;
                 playerWins = true;
             }
-            else if (dealerHasTrump && !playerHasTrump)
+            else if (dealerHasTrump)
             {
                 Dealer.Tricks += 1;
                 Dealer.Points += 1;
@@ -131,13 +131,13 @@ namespace Class_Practice
             }
             else
             {
-                Dealer.Tricks += 1;
-                Dealer.Points += 1;
-                playerWins = false;
+                Player.Tricks += 1;
+                Player.Points += 1;
+                playerWins = true;
             }
             return playerWins;
         }
-        public void addBonusPoints()
+        public void AddBonusPoints()
         {
             if (Player.Bid == Player.Tricks)
             {
@@ -148,7 +148,7 @@ namespace Class_Practice
                 Dealer.Points += 5;
             }
         }
-        public void removeCardFromList(Card usedCard, List<Card> listOfCards)
+        public void RemoveCardFromList(Card usedCard, List<Card> listOfCards)
         {
             var match = listOfCards.Find(card =>
                 card.Value == usedCard.Value && card.Suit == usedCard.Suit);

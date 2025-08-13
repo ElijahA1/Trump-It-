@@ -1,4 +1,4 @@
-﻿namespace Class_Practice
+﻿namespace Card_Game
 {
     public class Card
     {
@@ -11,12 +11,12 @@
             Value = value;
             Suit = suit;
 
-            string valueName = valueNames[value];
-            string suitName = suit;
-            ImagePath = $"{valueName}_{suitName}.png"; // Or include folder if needed
+            string cardRank = RankValue[value];
+            string cardSuit = suit;
+            ImagePath = $"{cardRank}_{cardSuit}.png";
         }
 
-        private static readonly Dictionary<int, string> valueNames = new()
+        private static readonly Dictionary<int, string> RankValue = new()
         {
             { 1, "two" },
             { 2, "three" },

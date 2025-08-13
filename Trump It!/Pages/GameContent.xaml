@@ -3,76 +3,104 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
              x:Class="Trump_It_.Pages.GameContent"
+             xmlns:vm="clr-namespace:Trump_It_.ViewModels"
              Title="GameContent"
-             BackgroundColor="DarkSlateGray">
+             BackgroundColor="BlanchedAlmond">
+    <ContentPage.BindingContext>
+        <vm:GameContentViewModel />
+    </ContentPage.BindingContext>
 
-    <VerticalStackLayout Spacing="20" Padding="20">
+    <VerticalStackLayout Spacing="5" Padding="30">
+        <Button Text="Home" FontSize="Medium" TextColor="Black" HeightRequest="30" WidthRequest="100" BackgroundColor="BlanchedAlmond" HorizontalOptions="Start" 
+                    Clicked="homeBtnClicked"/>
 
-        <!-- Home Button -->
-        <Button Text="Home" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkSlateGray" HorizontalOptions="Start" 
-                Clicked="homeBtnClicked"/>
+        <Border Stroke="Black" StrokeThickness="1" StrokeShape="RoundRectangle 10" BackgroundColor="DarkSlateGray" Shadow="2,0,3,Black" Padding="10" >
+            <VerticalStackLayout Spacing="20" Padding="20">
+                <!-- Home Button -->
 
-        <!-- Trump Card Label -->
-        <Label Text="Trump Card" FontSize="Large" TextColor="Gold" HorizontalOptions="End" Margin="0,10,0,0" />
+                <!-- Deck Shuffle Animation -->
+                <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
+                    <skia:SKLottieView x:Name="deck_shuffle_anim" Source="deck_shuffle.json" IsAnimationEnabled="{Binding IsShuffling}" RepeatCount="2" HeightRequest="300" WidthRequest="300" Margin="0,22,0,0"/>
+                    <!-- Trump Card -->
+                    <Border Stroke="Black" StrokeThickness="1" StrokeShape="RoundRectangle 10" BackgroundColor="DarkSlateGray" Shadow="2,0,3,Black" Padding="10" WidthRequest="200" HeightRequest="290">
+                        <VerticalStackLayout Spacing="20">
+                            <Label Text="Trump" FontSize="Large" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                            <Grid HeightRequest="200" WidthRequest="200" >
+                                <skia:SKLottieView x:Name="flip_trump_card" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
+                                <Image x:Name="trump_card_face" IsVisible= "False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200"/>
+                            </Grid>
+                        </VerticalStackLayout>
+                    </Border>
+                    
+                    <!-- Score Board -->
+                    <Border Stroke="Black" StrokeShape="RoundRectangle 10" BackgroundColor="Black" Shadow="2,0,3,Black" Padding="10" WidthRequest="600" HeightRequest="290">
+                        <Grid x:Name="ScoreGrid">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="2" />
+                                <ColumnDefinition Width="150" />
+                                <ColumnDefinition Width="150" />
+                            </Grid.ColumnDefinitions>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="2" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="2*" />
+                                <RowDefinition Height="1*" />
+                                <RowDefinition Height="2*" />
 
-        <!-- Deck and Trump Card Animation Layer -->
-        <!-- Deck Shuffle Animation -->
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="40">
-            <skia:SKLottieView x:Name="deck_shuffle_anim" Source="deck_shuffle.json" IsAnimationEnabled="False" RepeatCount="2" HeightRequest="300" WidthRequest="300" />
+                            </Grid.RowDefinitions>
+                            <!-- Top Row and Lines -->
+                            <Label Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="2" Text="Player" FontSize="Medium" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                            <Label Grid.Row="0" Grid.Column="3" Grid.ColumnSpan="2" Text="Dealer" FontSize="Medium" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                            <BoxView Grid.Row="0" Grid.RowSpan="6" Grid.Column="2" WidthRequest="2" BackgroundColor="WhiteSmoke" HorizontalOptions="Fill" VerticalOptions="Fill"/>
+                            <BoxView Grid.Row="1" Grid.ColumnSpan="5" Grid.Column="0" HeightRequest="2" BackgroundColor="WhiteSmoke" HorizontalOptions="Fill" VerticalOptions="Fill"/>
 
-            <!-- Trump Card -->
-            <Grid HeightRequest="200" WidthRequest="200">
-                <skia:SKLottieView x:Name="flip_trump_card" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image x:Name="trump_card_face" IsVisible= "False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200"/>
-            </Grid>
-        </HorizontalStackLayout>
+                            <!-- Player Section -->
+                            <Label Grid.Row="2" Grid.Column="0" Text="Tricks" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="1" Text="Bid" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                <Label x:Name="playerTrickCount" Grid.Row="3" Grid.Column="0" Text="" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                <Label x:Name="playerBidCount" Grid.Row="3" Grid.Column="1" Text="" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
 
-        <!-- Game Space/Bidding Area -->
-        <HorizontalStackLayout HorizontalOptions="Center" Spacing="20">
-            <Grid x:Name="biddingGrid" HeightRequest="400" HorizontalOptions="Fill" ColumnDefinitions="Auto" ColumnSpacing="30" ></Grid>
-        </HorizontalStackLayout>
-        
-        <!-- Bottom Row: Player Cards -->
-        <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End" Spacing="20">
-            <!-- Repeatable Card Blocks -->
-            <Grid x:Name ="playerHandGrid"  HorizontalOptions="Fill" HeightRequest="200" ColumnSpacing="20" ColumnDefinitions="Auto,Auto,Auto,Auto,Auto" >
-                
-                <skia:SKLottieView Grid.Column="0" x:Name="flip_card_anim_3" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="0" x:Name="card_face_3" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
+                            <Label Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Text="Total Points" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                <Label x:Name="playerPointsCount" Grid.Row="5" Grid.Column="0" Grid.ColumnSpan="2" Text="100" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
 
-                <skia:SKLottieView Grid.Column="1" x:Name="flip_card_anim_1" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="1" x:Name="card_face_1" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                
-                <skia:SKLottieView Grid.Column="2" x:Name="flip_card_anim_0" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="2" x:Name="card_face_0" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                
-                <skia:SKLottieView Grid.Column="3" x:Name="flip_card_anim_2" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="3" x:Name="card_face_2" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                
-                <skia:SKLottieView Grid.Column="4" x:Name="flip_card_anim_4" Source="card_flip.json" IsAnimationEnabled="False" HeightRequest="200" WidthRequest="200" IsVisible="False" />
-                <Image Grid.Column="4" x:Name="card_face_4" IsVisible="False" Aspect="AspectFit" HeightRequest="200" WidthRequest="200">
-                    <Image.GestureRecognizers>
-                        <TapGestureRecognizer Tapped="playerCardSelected" NumberOfTapsRequired="1" />
-                    </Image.GestureRecognizers>
-                </Image>
-                
-            </Grid>
-        </HorizontalStackLayout>
+                            <!-- Dealer Section -->
+                            <Label Grid.Row="2" Grid.Column="3" Text="Tricks" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                            <Label Grid.Row="2" Grid.Column="4" Text="Bid" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                 <Label x:Name="dealerTrickCount" Grid.Row="3" Grid.Column="3" Text="" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                 <Label x:Name="dealerBidCount" Grid.Row="3" Grid.Column="4" Text="" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+
+
+                            <Label Grid.Row="4" Grid.Column="3" Grid.ColumnSpan="2" Text="Total Points" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+                                 <Label x:Name="dealerPointsCount" Grid.Row="5" Grid.Column="3" Grid.ColumnSpan="2" Text="100" FontSize="Small" FontAttributes="Bold" TextColor="WhiteSmoke" HorizontalOptions="Center"/>
+
+                        </Grid>
+                    </Border>
+                </HorizontalStackLayout>
+
+                <!-- Game Space/Bidding Area -->
+                <Border x:Name="BiddingStack" Stroke="Black" StrokeThickness=".5" StrokeShape="RoundRectangle 10" BackgroundColor="BlanchedAlmond" Shadow="2,0,3,Black" Padding="10" ScaleY="0" >
+                    <Grid x:Name="BiddingGrid" HorizontalOptions="Center" HeightRequest="175">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                        </Grid.ColumnDefinitions>
+
+                        <Button Text="BID" Grid.Column ="0" FontSize ="Medium"  TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkRed" Clicked="BidClicked"></Button>
+                        <Button Text="PASS" Grid.Column ="1" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkGreen" Clicked="PassClicked"></Button>
+                    </Grid>
+                </Border>
+                <!-- Bottom Row: Player Cards -->
+                <Border Stroke="Black" StrokeThickness="1" StrokeShape="RoundRectangle 10" BackgroundColor="DarkSlateGray" Shadow="2,0,3,Black" Padding="10" >
+                    <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
+                        <!-- Repeatable Card Blocks -->
+                        <Grid x:Name ="playerHandGrid" HorizontalOptions="Fill" HeightRequest="350" ColumnSpacing="20" ColumnDefinitions="Auto" />
+                    </HorizontalStackLayout>
+                </Border>
+            </VerticalStackLayout>
+            
+        </Border>
     </VerticalStackLayout>
 </ContentPage>
