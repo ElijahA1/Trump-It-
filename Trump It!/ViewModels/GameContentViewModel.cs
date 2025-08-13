@@ -13,7 +13,7 @@ namespace Trump_It_.ViewModels
         public GameLogic Logic { get; } = new();
 
         private int rounds;
-        public bool Rounds
+        public int Rounds
         {
             get => Rounds;
             set

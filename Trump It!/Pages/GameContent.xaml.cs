@@ -19,15 +19,16 @@ public partial class GameContent : ContentPage
         
         await ViewModel.ShuffleCards();
         ViewModel.DealCards();
-        await ShowPlayerCards(ViewModel.rounds);
+        await ShowPlayerCards();
         await ShowTrumpCard();
         await Task.Delay(800);
         await OpenBiddingArea();
     }
+
     #region Card Display Methods
-    private async Task ShowPlayerCards(int rounds)
+    private async Task ShowPlayerCards()
     {
-        for (int i = 0; i < rounds; i++)
+        for (int i = 0; i < ViewModel.Rounds; i++)
         {
             Card card = Player.Hand[i];
 
@@ -85,7 +86,7 @@ public partial class GameContent : ContentPage
         Slider bidSlider = new()
         {
             Minimum = 0,
-            Maximum = ViewModel.rounds,
+            Maximum = ViewModel.Rounds,
             ThumbColor = Colors.Black,
             MinimumTrackColor = Colors.DarkGoldenrod,
             MaximumTrackColor = Colors.LightGray,
@@ -129,20 +130,11 @@ public partial class GameContent : ContentPage
     private async void SetBids(object sender, EventArgs e)
     {
         Player.Bid = ViewModel.PlayerBid;
-        ViewModel.Logic.DealerBid(ViewModel.rounds);
+        ViewModel.Logic.DealerBid(ViewModel.Rounds);
 
         playerBidCount.Text = Player.Bid.ToString();
         dealerBidCount.Text = Dealer.Bid.ToString();
     }
-    #endregion
-
-    #region Navigation and Button Events
-    private async void homeBtnClicked(object sender, EventArgs e)
-    {
-        await Navigation.PopModalAsync();
-    }
-    #endregion
-
     private async void CardTapped(object sender, EventArgs e)
     {
         if (!ViewModel.CanPlayCard) return;
@@ -166,7 +158,7 @@ public partial class GameContent : ContentPage
             playerCard.Source = tappedImage.Source;
             dealerCard.Source = ImageSource.FromFile(Dealer.CardInPlay.ImagePath);
         }
-       
+
         BiddingGrid.Children.Add(dealerCard);
         BiddingGrid.Children.Add(playerCard);
         BiddingGrid.Children.Add(flipAnimation);
@@ -180,14 +172,14 @@ public partial class GameContent : ContentPage
         await Task.Delay(2500);
         await RoundWinner();
         await Task.Delay(2000);
-        CloseBiddingArea(sender,e);
+        CloseBiddingArea(sender, e);
     }
     private async Task RoundWinner()
     {
         if (ViewModel.Logic.PlayerWon())
         {
             Label label = new Label
-            { Text = "Player has won the hand", TextColor = Colors.Black, FontSize = 25, FontAttributes= FontAttributes.Bold, WidthRequest = 200, HeightRequest = 200 };
+            { Text = "Player has won the hand", TextColor = Colors.Black, FontSize = 25, FontAttributes = FontAttributes.Bold, WidthRequest = 200, HeightRequest = 200 };
             BiddingGrid.Clear();
             BiddingGrid.Children.Add(label);
             BiddingGrid.SetColumn(label, 0);
@@ -210,4 +202,12 @@ public partial class GameContent : ContentPage
         playerTrickCount.Text = Player.Tricks.ToString();
         dealerTrickCount.Text = Dealer.Tricks.ToString();
     }
+    #endregion
+
+    #region Navigation and Button Events
+    private async void homeBtnClicked(object sender, EventArgs e)
+    {
+        await Navigation.PopModalAsync();
+    }
+    #endregion
 }
