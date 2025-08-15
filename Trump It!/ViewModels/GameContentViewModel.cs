@@ -12,17 +12,19 @@ namespace Trump_It_.ViewModels
 
         public GameLogic Logic { get; } = new();
 
+        private bool isShuffling;
+        private bool canPlayCard;
+        private int playerBid;
         private int rounds;
         public int Rounds
         {
-            get => Rounds;
+            get => rounds;
             set
             {
-                Rounds = value;
+                rounds = value;
                 OnPropertyChanged(nameof(Rounds));
             }
         }
-        private bool isShuffling;
         public bool IsShuffling
         {
             get => isShuffling;
@@ -32,7 +34,6 @@ namespace Trump_It_.ViewModels
                 OnPropertyChanged(nameof(IsShuffling));
             }
         }
-        private int playerBid;
         public int PlayerBid
         {
             get => playerBid;
@@ -42,7 +43,6 @@ namespace Trump_It_.ViewModels
                 OnPropertyChanged(nameof(PlayerBid));
             }
         }
-        private bool canPlayCard;
         public bool CanPlayCard
         {
             get => canPlayCard;
@@ -100,6 +100,7 @@ namespace Trump_It_.ViewModels
             animation.IsAnimationEnabled = false;
             animation.IsVisible = false;
             cardImage.IsVisible = true;
+            await Task.Delay(200);
         }
     }
 }

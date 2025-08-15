@@ -86,17 +86,21 @@
                         <Grid.ColumnDefinitions>
                             <ColumnDefinition Width="200" />
                             <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
+                            <ColumnDefinition Width="200" />
                         </Grid.ColumnDefinitions>
 
-                        <Button Text="BID" Grid.Column ="0" FontSize ="Medium"  TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkRed" Clicked="BidClicked"></Button>
-                        <Button Text="PASS" Grid.Column ="1" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="100" BackgroundColor="DarkGreen" Clicked="PassClicked"></Button>
+                        <Label Grid.Column="0" Text="Select a number of rounds:" TextColor="Black" Background="BlanchedAlmond" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Label Grid.Column="1" x:Name="RoundCounter" Text="" TextColor="Black" Background="BlanchedAlmond" FontSize="Medium" FontAttributes="Bold" HorizontalOptions="Center"/>
+                        <Slider Grid.Column="2"  x:Name="RoundSlider" Minimum="1" Maximum="8" ThumbColor="black" MinimumTrackColor="DarkGoldenrod" MaximumTrackColor="LightGray" HeightRequest="50" WidthRequest="200" />
+                        <Button Grid.Column="3" x:Name="RoundConfirmButton" Text="Confirm" TextColor="WhiteSmoke" BackgroundColor="Black" HeightRequest="70" WidthRequest="150"/>
                     </Grid>
                 </Border>
                 <!-- Bottom Row: Player Cards -->
                 <Border Stroke="Black" StrokeThickness="1" StrokeShape="RoundRectangle 10" BackgroundColor="DarkSlateGray" Shadow="2,0,3,Black" Padding="10" >
                     <HorizontalStackLayout HorizontalOptions="Center" VerticalOptions="End">
                         <!-- Repeatable Card Blocks -->
-                        <Grid x:Name ="playerHandGrid" HorizontalOptions="Fill" HeightRequest="350" ColumnSpacing="20" ColumnDefinitions="Auto" />
+                        <Grid x:Name ="PlayerHandGrid" HorizontalOptions="Fill" HeightRequest="350" ColumnSpacing="20" ColumnDefinitions="Auto" />
                     </HorizontalStackLayout>
                 </Border>
             </VerticalStackLayout>
