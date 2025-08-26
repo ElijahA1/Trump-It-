@@ -2,8 +2,7 @@
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:skia="clr-namespace:SkiaSharp.Extended.UI.Controls;assembly=SkiaSharp.Extended.UI"
-             x:Class="Trump_It_.MainPage"
-             BackgroundColor="DarkSlateGray">
+             x:Class="Trump_It_.MainPage">
     <ScrollView>
         <VerticalStackLayout VerticalOptions="Center" HorizontalOptions="Center" Spacing="35">
             <!-- Trumpet Animation -->
@@ -46,9 +45,9 @@
             </HorizontalStackLayout>
             
                  <!-- Play button -->
-                <Button x:Name="playButton" Text="PLAY IT!" FontSize="Medium" FontAttributes="Bold"  TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="150" BackgroundColor="DarkSlateBlue" Clicked="playBtnClicked" ></Button>
+                <Button Text="PLAY IT!" Clicked="playBtnClicked" StyleClass="HomeButton"></Button>
                 <!-- How to play button -->
-                <Button Text="HOW TO PLAY" FontSize="Medium" TextColor="WhiteSmoke" HeightRequest="30" WidthRequest="200" BackgroundColor="DarkSlateBlue" Clicked="howToPlayBtnClicked"></Button>
+            <Button Text="HOW TO PLAY" Clicked="howToPlayBtnClicked" StyleClass="HomeButton"></Button>
         
         </VerticalStackLayout>
     </ScrollView>
