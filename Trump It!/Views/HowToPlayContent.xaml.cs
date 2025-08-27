@@ -1,12 +1,14 @@
+using Trump_It_.ViewModels;
 namespace Trump_It_.Pages;
 
 public partial class HowToPlayContent : ContentPage
 {
-	public HowToPlayContent()
+    public HowToPlayContent()
 	{
 		InitializeComponent();
-	}
-    private async void homeBtnClicked(object sender, EventArgs e)
+        BindingContext = new HowToPlayViewModel();
+    }
+    private async void HomeButtonClicked(object sender, EventArgs e)
     {
         await Navigation.PopModalAsync();
     }

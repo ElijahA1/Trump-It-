@@ -51,6 +51,7 @@
 
     <Style TargetType="Button" Class="InteractiveButton">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource White}, Dark={StaticResource White}}" />
+        <Setter Property="VerticalOptions" Value="Center" />
         <Setter Property="BackgroundColor" Value="{AppThemeBinding Light={StaticResource Tertiary}, Dark={StaticResource Black}}" />
         <Setter Property="FontFamily" Value="OpenSansRegular"/>
         <Setter Property="FontSize" Value="20"/>
@@ -174,6 +175,16 @@
         </Setter>
     </Style>
     
+    <Style TargetType="Stepper">
+        <Setter Property="BackgroundColor" Value="BlanchedAlmond" />
+        <Setter Property="HeightRequest" Value="50" />
+        <Setter Property="WidthRequest" Value="200" />
+        <Setter Property="HorizontalOptions" Value="Center" />
+        <Setter Property="VerticalOptions" Value="Center" />
+        <Setter Property="Increment" Value="1" />
+        <Setter Property="Margin" Value="10" />
+    </Style>
+
     <Style TargetType="Label" Class="GameLabel">
         <Setter Property="TextColor" Value="{AppThemeBinding Light={StaticResource Black}, Dark={StaticResource Black}}" />
         <Setter Property="HorizontalTextAlignment" Value="Center" />

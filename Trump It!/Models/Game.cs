@@ -6,7 +6,7 @@ namespace Card_Game
     {
         public Player Player = new();
         public Player Dealer = new();
-        public Card TrumpCard { get; set; }
+        public Card? TrumpCard { get; set; }
 
         private List<Card> deckOfCards = new List<Card>();
         private int[] cardValues = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13 };
@@ -15,6 +15,7 @@ namespace Card_Game
         // -- Game flow --
         public void AddCardsToDeck()
         {
+            deckOfCards.Clear();
             deckOfCards.AddRange(
                 cardSuits.SelectMany(suit => 
                 cardValues.Select(value => 
@@ -33,8 +34,9 @@ namespace Card_Game
         }
         public void DealCardsForRound(int rounds)
         {
-            Player.CardsInHand = new List<Card>();
-            Dealer.CardsInHand = new List<Card>();
+            Player.ResetValues();
+            Dealer.ResetValues();
+
             while (rounds > 0)
             {
                 Player.CardsInHand.Add(deckOfCards[0]);
@@ -66,6 +68,8 @@ namespace Card_Game
         }
         public bool PlayerWonHand()
         {
+            if (TrumpCard == null || Player.CardInPlay == null || Dealer.CardInPlay == null)
+                return false;
             bool playerHasHigherCard = Player.CardInPlay.Value > Dealer.CardInPlay.Value;
             bool sameSuit = Player.CardInPlay.Suit == Dealer.CardInPlay.Suit;
             bool playerHasTrump = Player.CardInPlay.Suit == TrumpCard.Suit;
