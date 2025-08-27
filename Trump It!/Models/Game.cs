@@ -15,6 +15,7 @@ namespace Card_Game
         // -- Game flow --
         public void AddCardsToDeck()
         {
+            // Generate one card object for each card and suit combination
             deckOfCards.Clear();
             deckOfCards.AddRange(
                 cardSuits.SelectMany(suit => 
@@ -34,9 +35,11 @@ namespace Card_Game
         }
         public void DealCardsForRound(int rounds)
         {
+            // Reset players properties to null or zero
             Player.ResetValues();
             Dealer.ResetValues();
 
+            // Add top cards to a players' hands then remove it from the deck
             while (rounds > 0)
             {
                 Player.CardsInHand.Add(deckOfCards[0]);
@@ -46,6 +49,7 @@ namespace Card_Game
                 deckOfCards.RemoveAt(0);
                 rounds--;
             }
+
             TrumpCard = deckOfCards[0];
             deckOfCards.RemoveAt(0);
         }
@@ -61,7 +65,7 @@ namespace Card_Game
         }
         public void DealerPlaysCard()
         {
-            // Dealer must play a card of the same suit as players cardInPlay if the able
+            // Dealer must play a card of the same suit as players cardInPlay. Else play the first card in hand
             Card sameSuitCard = Dealer.CardsInHand.FirstOrDefault(dealerCard => dealerCard.Suit == Player.CardInPlay.Suit);
             Dealer.CardInPlay = sameSuitCard ?? Dealer.CardsInHand[0];
             Dealer.CardsInHand.Remove(Dealer.CardInPlay);
@@ -70,11 +74,16 @@ namespace Card_Game
         {
             if (TrumpCard == null || Player.CardInPlay == null || Dealer.CardInPlay == null)
                 return false;
+
+            // If both cards played are the same suit, the higher value card wins.
+            // If one card is a trump card and the other is not, the trump card wins.
+            // If neither cards are the same suit or trump, the player wins.
             bool playerHasHigherCard = Player.CardInPlay.Value > Dealer.CardInPlay.Value;
             bool sameSuit = Player.CardInPlay.Suit == Dealer.CardInPlay.Suit;
             bool playerHasTrump = Player.CardInPlay.Suit == TrumpCard.Suit;
             bool dealerHasTrump = Dealer.CardInPlay.Suit == TrumpCard.Suit;
 
+            // Returns and awards points the hand winner
             if (sameSuit)
             {
                 if (playerHasHigherCard)
@@ -109,6 +118,7 @@ namespace Card_Game
         }
         public void AddBonusPoints()
         {
+            // If tricks won matches tricks bid. Award 5 bonus points
             if (Player.CurrentBid == Player.TricksWon)
             {
                 Player.TotalPoints += 5;
