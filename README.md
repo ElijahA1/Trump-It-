@@ -17,7 +17,6 @@ Trump-It is a modular card game interface built with .NET MAUI, showcasing MVVM 
     dotnet build
     dotnet run
 
-
 🧠 Architectural Highlights
     - Uses [ObservableProperty] and [RelayCommand] for clean MVVM binding
     - Scrollable image sections with dynamic content binding
@@ -28,6 +27,5 @@ Trump-It is a modular card game interface built with .NET MAUI, showcasing MVVM 
     - [x] Image and text binding via ViewModel
     - [ ] Card dealing animation with Lottie
     - [ ] Game logic and scoring engine
-    - [ ] Multiplayer support
 👨‍💻 Author
-Built by Elijah A., a mission systems technician and developer transitioning into Systems Administration. Passionate about maintainable architecture, UI polish, and high-impact technical roles in defense and aerospace.
+Built by Elijah A., aspiring software developer. Passionate about maintainable architecture and polished UI.
