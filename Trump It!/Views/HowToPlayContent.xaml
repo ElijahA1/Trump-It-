@@ -1,10 +1,11 @@
 <?xml version="1.0" encoding="utf-8" ?>
 <ContentPage xmlns="http://schemas.microsoft.com/dotnet/2021/maui"
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:vm="clr-namespace:Trump_It_.ViewModels"
              x:Class="Trump_It_.Pages.HowToPlayContent"
              Title="HowToPlayContent"
              BackgroundColor="DarkSlateGray">
-    <VerticalStackLayout>
+    <VerticalStackLayout VerticalOptions="Center">
         <Button
             Text="Home"
             FontSize="Medium"
@@ -13,15 +14,52 @@
             WidthRequest="100"
             BackgroundColor="DarkSlateGray"
             HorizontalOptions="Start"
-            Clicked="homeBtnClicked"
+            Clicked="HomeButtonClicked"
         ></Button>
-        <Label 
-            TextColor="AntiqueWhite"
-            FontSize="20"
+        <HorizontalStackLayout
+            HorizontalOptions="Center">
+            <Button
+            Text="&lt;"
+            BackgroundColor="Black"
+            FontSize="Large"
             FontAttributes="Bold"
-            Margin="40"
-            Text="This is the how to play page"
-            VerticalOptions="Center" 
-            HorizontalOptions="Center" />
+            TextColor="WhiteSmoke"
+            HeightRequest="100"
+            WidthRequest="50"
+            HorizontalOptions="Start"
+            VerticalOptions="Center"
+            Command="{Binding SlideLeftCommand}">
+            </Button>
+            <Border>
+                <VerticalStackLayout BackgroundColor="Black">
+                    <Image WidthRequest="1200"
+                               HeightRequest="450"
+                               Source="{Binding TopImage}"
+                               Aspect="AspectFit" />
+
+                    <Label WidthRequest="1200"
+                               HeightRequest="100"
+                               Text="{Binding Description}"
+                               VerticalTextAlignment="Center"
+                               HorizontalTextAlignment="Center"/>
+
+                    <Image WidthRequest="1200"
+                               HeightRequest="350"
+                               Source="{Binding BottomImage}"
+                               Aspect="AspectFit" />
+                </VerticalStackLayout>
+            </Border>
+            <Button
+            Text="&gt;"
+            BackgroundColor="Black"
+            FontSize="Large"
+            FontAttributes="Bold"
+            TextColor="WhiteSmoke"
+            HeightRequest="100"
+            WidthRequest="50"
+            VerticalOptions="Center"
+            Command="{Binding SlideRightCommand}">
+            </Button>
+        </HorizontalStackLayout>
     </VerticalStackLayout>
 </ContentPage>

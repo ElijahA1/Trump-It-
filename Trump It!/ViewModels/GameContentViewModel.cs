@@ -1,16 +1,13 @@
 ﻿using Card_Game;
 using CommunityToolkit.Mvvm.ComponentModel;
 using CommunityToolkit.Mvvm.Input;
-using SkiaSharp.Extended.UI.Controls;
+using Plugin.Maui.Audio;
 using System.Collections.ObjectModel;
-using System.ComponentModel;
-using System.Threading.Tasks;
 
 namespace Trump_It_.ViewModels
 {
     public partial class GameContentViewModel : ObservableObject
     {
-
         Game Logic = new();
         public ObservableCollection<CardViewModel> PlayersHand { get; } = new();
         public ObservableCollection<CardViewModel> TrumpCard { get; } = new();
@@ -20,37 +17,39 @@ namespace Trump_It_.ViewModels
         #region ObservableProperties
 
         [ObservableProperty]
-        int roundsPlayable = 1;
+        private int roundsPlayable;
 
         [ObservableProperty]
-        bool shufflingEnabled;
+        private bool shufflingEnabled;
         [ObservableProperty]
-        bool setRoundsEnabled;
+        private bool setRoundsEnabled;
         [ObservableProperty]
-        bool biddingEnabled;
+        private bool biddingEnabled;
         [ObservableProperty]
-        bool canPlayCard;
+        private bool canPlayCard;
         [ObservableProperty]
-        bool winningStatementEnabled;
+        private bool winningStatementEnabled;
         [ObservableProperty]
-        bool isGameAreaOpen;
+        private bool isGameAreaOpen;
+        [ObservableProperty]
+        private bool newGameEnabled;
 
         [ObservableProperty]
-        int playerBid;
+        private int playerBid;
         [ObservableProperty]
-        int playerTricks;
+        private int playerTricks;
         [ObservableProperty]
-        int playerPoints;
+        private int playerPoints;
 
         [ObservableProperty]
-        int dealerBid;
+        private int dealerBid;
         [ObservableProperty]
-        int dealerTricks;
+        private int dealerTricks;
         [ObservableProperty]
-        int dealerPoints;
+        private int dealerPoints;
 
         [ObservableProperty]
-        string winningStatement;
+        private string? winningStatement;
         #endregion
 
         #region RelayCommands
@@ -81,7 +80,7 @@ namespace Trump_It_.ViewModels
         [RelayCommand]
         public async Task PlayCard(CardViewModel selectedCard)
         {
-            if (selectedCard == null)
+            if (selectedCard == null || Logic.Player.CardsInHand == null)
                 return;
 
             // Stage game area
@@ -96,6 +95,10 @@ namespace Trump_It_.ViewModels
 
             // Trigger dealer's move
             Logic.DealerPlaysCard();
+
+            if (Logic.Dealer.CardInPlay == null)
+                return;
+
             var dealersCard = new CardViewModel(Logic.Dealer.CardInPlay);
             DealerCard.Add(dealersCard);
             await RevealCardAnimation(dealersCard);
@@ -111,11 +114,27 @@ namespace Trump_It_.ViewModels
             if (PlayersHand.Count == 0)
                 await EndRound();
         }
+
+        [RelayCommand]
+        public void StartNewGame() 
+        {
+            NewGameEnabled = false;
+            CanPlayCard = false;
+            RoundsPlayable = 1;
+            PlayerPoints = PlayerTricks = PlayerBid = 0;
+            DealerPoints = DealerTricks = DealerBid = 0;
+            SetRoundsEnabled = true;
+            IsGameAreaOpen = true;
+        }
         #endregion
 
-        #region GameFlow
+        #region GameActions
         public async Task ShuffleCards()
         {
+            // Set or Reset bids and tricks to default
+            PlayerBid = PlayerTricks = DealerBid = DealerTricks = 0;
+            TrumpCard.Clear();
+
             Logic.AddCardsToDeck();
             Logic.ShuffleCardsInDeck();
 
@@ -128,7 +147,11 @@ namespace Trump_It_.ViewModels
             // Deal Cards logically
             Logic.DealCardsForRound(RoundsPlayable);
 
-            // Bind/Reveal Players Cards
+            // Check for null values
+            if (Logic.Player.CardsInHand == null || Logic.TrumpCard == null)
+                return;
+
+            // Bind/Reveal Players Cards to Player Hand
             foreach (var card in Logic.Player.CardsInHand)
             {
                 var cardVM = new CardViewModel(card);
@@ -138,7 +161,6 @@ namespace Trump_It_.ViewModels
             }
 
             // Bind/Reveal Trump Card
-            TrumpCard.Clear();
             var trump = new CardViewModel(Logic.TrumpCard);
             TrumpCard.Add(trump);
             await RevealCardAnimation(trump);
@@ -149,8 +171,8 @@ namespace Trump_It_.ViewModels
         }
         public async Task ShowHandWinner()
         {
+            // Set winning statement Label text
             WinningStatementEnabled = true;
-
             WinningStatement = Logic.PlayerWonHand() switch
             {
                 true => "Player won this hand. Tricks + 1",
@@ -168,17 +190,24 @@ namespace Trump_It_.ViewModels
         }
         public async Task EndRound()
         {
+            // Add Points
             Logic.AddBonusPoints();
             PlayerPoints = Logic.Player.TotalPoints;
             DealerPoints = Logic.Dealer.TotalPoints;
 
+            // Start next round or end the game
             RoundsPlayable--;
-            await ShuffleCards();
-            await StartRound();
+
+            if (RoundsPlayable == 0)
+                await EndGame();
+            else
+            {
+                await ShuffleCards();
+                await StartRound();
+            }
         }
         public async Task EndGame()
         {
-
             WinningStatement = PlayerPoints switch
             {
                 var points when points > DealerPoints => "Congrats! You won the game",
@@ -189,6 +218,12 @@ namespace Trump_It_.ViewModels
             WinningStatementEnabled = true;
             IsGameAreaOpen = true;
             await Task.Delay(2000);
+
+            // Request to Start New Game
+            IsGameAreaOpen = false;
+            WinningStatementEnabled = false;
+            NewGameEnabled = true;
+            IsGameAreaOpen = true;
         } 
         #endregion
         public async Task RevealCardAnimation(CardViewModel cardVM)

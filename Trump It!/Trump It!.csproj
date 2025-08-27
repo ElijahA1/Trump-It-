@@ -43,7 +43,7 @@
 
 	<ItemGroup>
 		<!-- App Icon -->
-		<MauiIcon Include="Resources\AppIcon\appicon.svg" ForegroundFile="Resources\AppIcon\appiconfg.svg" Color="#512BD4" />
+		<MauiIconMauiIcon Include="Resources\AppIcon\custom_icon.png" ForegroundFile ="Resources\AppIcon\custom_iconfg.png" />
 
 		<!-- Splash Screen -->
 		<MauiSplashScreen Include="Resources\Splash\splash.svg" Color="#512BD4" BaseSize="128,128" />
@@ -55,7 +55,7 @@
 		<MauiImage Include="Resources\Images\Deck of Cards\Hearts\*" />
 		<MauiImage Include="Resources\Images\Deck of Cards\Spades\*" />
 		<MauiImage Include="Resources\Images\Deck of Cards\Stars\*" />
-
+		<MauiImage Include="Resources\Images\how_to_play_images\*" />
 		
 		<!-- Custom Fonts -->
 		<MauiFont Include="Resources\Fonts\*" />
@@ -65,11 +65,16 @@
 	</ItemGroup>
 
 	<ItemGroup>
+	  <None Remove="Resources\AppIcon\custom_icon.png" />
 	  <None Remove="Resources\Images\Main Page Cards\m_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\p_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\r_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\t_card.png" />
 	  <None Remove="Resources\Images\Main Page Cards\u_card.png" />
+	</ItemGroup>
+
+	<ItemGroup>
+	  <MauiIcon Include="Resources\AppIcon\custom_icon.png" />
 	</ItemGroup>
 
 	<ItemGroup>
@@ -87,6 +92,7 @@
 		<PackageReference Include="CommunityToolkit.Mvvm" Version="8.4.0" />
 		<PackageReference Include="Microsoft.Maui.Controls" Version="$(MauiVersion)" />
 		<PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="9.0.0" />
+		<PackageReference Include="Plugin.Maui.Audio" Version="4.0.0" />
 		<PackageReference Include="SkiaSharp.Extended.UI.Maui" Version="2.0.0" />
 		<PackageReference Include="SkiaSharp.Views.Maui.Controls" Version="3.119.0" />
 	</ItemGroup>

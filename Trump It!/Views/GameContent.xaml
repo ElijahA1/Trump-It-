@@ -29,14 +29,21 @@
                         StyleClass="GameLabel"
                         TextColor="DarkGoldenrod"
                         FontSize="35"
-                        WidthRequest="130"/>
+                        WidthRequest="130">
+                        </Label>
+
                         <Label 
                         Text="{Binding RoundsPlayable}" 
                         StyleClass="GameLabel"
                         TextColor="WhiteSmoke"
                         FontSize="40"
                         HorizontalOptions="Center"
-                        WidthRequest="70"/>
+                        WidthRequest="70">
+                            <Label.Shadow>
+                                <Shadow Brush="Black"
+                                        Offset="2,2"/>
+                            </Label.Shadow>
+                        </Label>
                     </VerticalStackLayout>
                     <skia:SKLottieView x:Name="deck_shuffle_anim" 
                                        Source="deck_shuffle.json" 
@@ -46,30 +53,40 @@
                                        WidthRequest="300" 
                                        Margin="0,22,0,0"/>
                     <!-- Trump Card -->
-                    <Border WidthRequest="200" 
-                            HeightRequest="290">
-                        <VerticalStackLayout BindableLayout.ItemsSource="{Binding TrumpCard}" 
-                                             Spacing="20">
-                            <BindableLayout.ItemTemplate>
-                                <DataTemplate>
-                                    <Grid>
-                                        <skia:SKLottieView 
-                                            IsVisible="{Binding FlipAnimationEnabled}" 
-                                            IsAnimationEnabled="{Binding FlipAnimationEnabled}" 
-                                            Source="card_flip.json"
-                                            HeightRequest="200"
-                                            WidthRequest="200"/>
+                    <VerticalStackLayout>
+                        <Label 
+                        Text="TRUMP" 
+                        StyleClass="GameLabel"
+                        TextColor="DarkGoldenrod"
+                        FontSize="35"
+                        HeightRequest="40"
+                        WidthRequest="130">
+                        </Label>
+                        <Border WidthRequest="200" 
+                                HeightRequest="230"
+                                HorizontalOptions="Center">
+                            <VerticalStackLayout BindableLayout.ItemsSource="{Binding TrumpCard}" 
+                                                 Spacing="20" >
+                                <BindableLayout.ItemTemplate>
+                                    <DataTemplate>
+                                        <Grid HorizontalOptions="Center">
+                                            <skia:SKLottieView 
+                                                IsVisible="{Binding FlipAnimationEnabled}" 
+                                                IsAnimationEnabled="{Binding FlipAnimationEnabled}" 
+                                                Source="card_flip.json"
+                                                HeightRequest="200"
+                                                WidthRequest="200"/>
 
-                                        <Image Source="{Binding ImagePath}"
-                                           IsVisible="{Binding IsFlipped}"
-                                           StyleClass="CardImageStyle">
-                                        </Image>
-                                    </Grid>
-                                </DataTemplate>
-                            </BindableLayout.ItemTemplate>
-                        </VerticalStackLayout>
-                    </Border>
-
+                                            <Image Source="{Binding ImagePath}"
+                                               IsVisible="{Binding IsFlipped}"
+                                               StyleClass="CardImageStyle">
+                                            </Image>
+                                        </Grid>
+                                    </DataTemplate>
+                                </BindableLayout.ItemTemplate>
+                            </VerticalStackLayout>
+                        </Border>
+                    </VerticalStackLayout>
                     <!-- Score Board -->
                     <Border WidthRequest="600" 
                             HeightRequest="290"
@@ -126,7 +143,7 @@
                         ScaleY="0"
                         Background="BlanchedAlmond"
                         HorizontalOptions="Fill" >
-                    <Grid ColumnSpacing="60"
+                    <Grid 
                             BackgroundColor="BlanchedAlmond"
                             HorizontalOptions="Center"
                             VerticalOptions="Center"
@@ -135,19 +152,24 @@
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
                             <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
                         </Grid.ColumnDefinitions>
                         <!-- Start and Set Rounds -->
                         <Label Grid.Column="0" 
+                                   Margin="0,0,60,0"
                                    StyleClass="GameLabel"
                                    Text="Select a number of rounds to play" 
                                    IsVisible="{Binding SetRoundsEnabled}"/>
                         <Slider Grid.Column="1" 
-                                    Minimum="1" 
+                                    Grid.ColumnSpan="2"
+                                    Margin="10"
+                                    Minimum="1"
                                     Maximum="8"
-                                    Value="{Binding RoundsPlayable}"
                                     IsVisible="{Binding SetRoundsEnabled}"
-                                    IsEnabled="{Binding SetRoundsEnabled}"/>
-                        <Button Grid.Column="2" 
+                                    IsEnabled="{Binding SetRoundsEnabled}"
+                                    Value="{Binding RoundsPlayable}"/>
+                        <Button Grid.Column="3"
+                                    Margin="60"
                                     Text="Confirm" 
                                     StyleClass="InteractiveButton"
                                     IsVisible="{Binding SetRoundsEnabled}"
@@ -163,17 +185,21 @@
                                    FontAttributes="Bold"
                                    IsVisible="{Binding BiddingEnabled}"/>
                         <Slider Grid.Column="1" 
-                                    Minimum="0" 
+                                    Margin="10"
+                                    Minimum="0"
                                     Maximum="{Binding RoundsPlayable}"
-                                    Value="{Binding PlayerBid}"
+                                    Grid.ColumnSpan="2"
                                     IsVisible="{Binding BiddingEnabled}"
-                                    IsEnabled="{Binding BiddingEnabled}"/>
-                        <Button Grid.Column="2" 
+                                    IsEnabled="{Binding BiddingEnabled}"
+                                    Value="{Binding PlayerBid}"/>
+
+                        <Button Grid.Column="3" 
                                     Text="Confirm Bid" 
                                     StyleClass="InteractiveButton"
                                     IsVisible="{Binding BiddingEnabled}"
                                     IsEnabled="{Binding BiddingEnabled}"
-                                    Command="{Binding ConfirmPlayerBidCommand}"/>
+                                    Command="{Binding ConfirmPlayerBidCommand}"
+                                    CommandParameter="{Binding .}" />
 
                         <!-- Compare Cards Played -->
                         <!-- Player Card -->
@@ -228,6 +254,14 @@
                                    Text="{Binding WinningStatement}" 
                                    HorizontalOptions="Center"
                                    IsVisible="{Binding WinningStatementEnabled}"/>
+
+                        <Button Grid.Column="0" 
+                                    Text="PLAY AGAIN?" 
+                                    StyleClass="InteractiveButton"
+                                    IsVisible="{Binding NewGameEnabled}"
+                                    IsEnabled="{Binding NewGameEnabled}"
+                                    Command="{Binding StartNewGameCommand}"
+                                    CommandParameter="{Binding .}" />
                     </Grid>
                 </Border>
                 <!-- Bottom Row: Players Cards In Hand -->

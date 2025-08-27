@@ -1,4 +1,5 @@
 
+using Plugin.Maui.Audio;
 using Trump_It_.ViewModels;
 
 namespace Trump_It_.Pages;
@@ -9,6 +10,7 @@ public partial class GameContent : ContentPage
     public GameContent()
     {
         InitializeComponent();
+
         ViewModel = new GameContentViewModel();
         BindingContext = ViewModel;
     }
@@ -18,6 +20,7 @@ public partial class GameContent : ContentPage
         base.OnAppearing();
 
         ViewModel.CanPlayCard = false;
+        ViewModel.RoundsPlayable = 1;
 
         // Open and Close game area
         ViewModel.PropertyChanged += async (s, e) =>
@@ -34,21 +37,6 @@ public partial class GameContent : ContentPage
                 }
             }
         };
-        
-        // End the game when number of rounds is zero
-        ViewModel.PropertyChanged += async (s, e) =>
-        {
-            if (e.PropertyName == nameof(ViewModel.RoundsPlayable))
-            {
-                if (ViewModel.RoundsPlayable == 0)
-                {
-                    await ViewModel.EndGame();
-                    await Navigation.PopModalAsync();
-                    return;
-                }
-            }
-        };
-
         ViewModel.SetRoundsEnabled = true;
         ViewModel.IsGameAreaOpen = true;
     }
